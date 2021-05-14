@@ -14,8 +14,8 @@
         <ImageView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/pokemon_appbar_circles"
-            android:contentDescription="@null" />
+            android:contentDescription="@null"
+            android:src="@drawable/pokemon_appbar_circles" />
     </androidx.appcompat.widget.Toolbar>
 
     <FrameLayout
@@ -40,6 +40,14 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:text="@string/error_message"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/empty_message"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:text="@string/empty_pokemon_response_message"
             android:textStyle="bold" />
     </FrameLayout>
 </LinearLayout>

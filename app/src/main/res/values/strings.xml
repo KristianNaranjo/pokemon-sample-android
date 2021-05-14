@@ -1,4 +1,5 @@
 <resources>
     <string name="app_name">Pokemon Sample</string>
     <string name="error_message">Whoops, there was an error</string>
+    <string name="empty_pokemon_response_message">Whoops, no pokemon were found</string>
 </resources>

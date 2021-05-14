@@ -60,6 +60,7 @@ class PokedexActivity : AppCompatActivity() {
                     pokedexAdapter
                 )
                 PokedexViewModel.State.Error -> binding.showErrorState()
+                PokedexViewModel.State.Empty -> binding.showEmptyState()
             }
         }
     }
@@ -75,6 +76,7 @@ class PokedexActivity : AppCompatActivity() {
         pokemonList.isVisible = false
         loadingIndicator.isVisible = false
         errorMessage.isVisible = false
+        emptyMessage.isVisible = false
     }
 
     private fun ActivityPokedexBinding.showLoadingState() {
@@ -93,5 +95,9 @@ class PokedexActivity : AppCompatActivity() {
 
     private fun ActivityPokedexBinding.showErrorState() {
         errorMessage.isVisible = true
+    }
+
+    private fun ActivityPokedexBinding.showEmptyState() {
+        emptyMessage.isVisible = true
     }
 }

@@ -18,7 +18,12 @@ class PokedexViewModel(pokemonRepository: PokemonRepository) : ViewModel() {
 
             state.postValue(
                 when (result) {
-                    is Result.Success -> State.Loaded(result.data)
+                    is Result.Success -> {
+                        when {
+                            result.data.isNotEmpty() -> State.Loaded(result.data)
+                            else -> State.Empty
+                        }
+                    }
                     is Result.Error -> State.Error
                 }
             )
@@ -29,5 +34,6 @@ class PokedexViewModel(pokemonRepository: PokemonRepository) : ViewModel() {
         data class Loaded(val pokemon: List<Pokemon>) : State()
         object Loading : State()
         object Error : State()
+        object Empty : State()
     }
 }

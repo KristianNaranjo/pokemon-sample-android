@@ -6,9 +6,9 @@ data class PokemonResponse(
     @Json(name = "count")
     val count: Long,
     @Json(name = "next")
-    val nextPageUrl: String?,
+    val nextPageUrl: String? = null,
     @Json(name = "previous")
-    val previousPageUrl: String?,
+    val previousPageUrl: String? = null,
     @Json(name = "results")
     val results: List<Pokemon> = emptyList()
 )
