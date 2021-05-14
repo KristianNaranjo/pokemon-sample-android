@@ -7,7 +7,22 @@
 
     <androidx.viewpager2.widget.ViewPager2
         android:id="@+id/pokemon_list"
-        android:orientation="vertical"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent"
+        android:orientation="vertical" />
+
+    <ProgressBar
+        android:id="@+id/loading_indicator"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center" />
+
+    <TextView
+        android:id="@+id/error_message"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="@string/error_message"
+        android:textColor="?android:textColorPrimary"
+        android:textStyle="bold" />
 </FrameLayout>

@@ -10,15 +10,24 @@ import kotlinx.coroutines.launch
 
 class PokedexViewModel(pokemonRepository: PokemonRepository) : ViewModel() {
 
-    val pokemon = MutableLiveData<List<Pokemon>>()
+    val state = MutableLiveData<State>(State.Loading)
 
     init {
         viewModelScope.launch {
             val result = pokemonRepository.getPokemon()
 
-            if (result is Result.Success) {
-                pokemon.postValue(result.data)
-            }
+            state.postValue(
+                when (result) {
+                    is Result.Success -> State.Loaded(result.data)
+                    is Result.Error -> State.Error
+                }
+            )
         }
+    }
+
+    sealed class State {
+        data class Loaded(val pokemon: List<Pokemon>) : State()
+        object Loading : State()
+        object Error : State()
     }
 }
