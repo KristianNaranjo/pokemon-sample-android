@@ -2,41 +2,30 @@ package com.naranjo.kristian.pokemonsample.ui.pokedex
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
-import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import coil.load
-import com.naranjo.kristian.pokemonsample.R
 import com.naranjo.kristian.pokemonsample.databinding.PokedexItemBinding
 import com.naranjo.kristian.pokemonsample.service.Pokemon
+import com.naranjo.kristian.pokemonsample.ui.util.CircularAdapter
 
 
-class PokedexAdapter : ListAdapter<Pokemon, RecyclerView.ViewHolder>(PokedexDiffUtil()) {
+class PokedexAdapter : CircularAdapter<Pokemon, String, PokemonItemViewHolder>(Pokemon::name) {
 
-    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
-        return when (viewType) {
-            R.layout.pokedex_item -> PokemonItemViewHolder(
-                PokedexItemBinding.inflate(
-                    LayoutInflater.from(
-                        parent.context
-                    ), parent, false
-                )
+    override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonItemViewHolder {
+        return PokemonItemViewHolder(
+            PokedexItemBinding.inflate(
+                LayoutInflater.from(
+                    parent.context
+                ), parent, false
             )
-            else -> throw IllegalStateException()
-        }
+        )
     }
 
-    override fun onBindViewHolder(holder: RecyclerView.ViewHolder, position: Int) {
-        when (holder) {
-            is PokemonItemViewHolder -> holder.bind(getItem(position).getImageUrl())
-        }
-    }
 
-    override fun getItemViewType(position: Int): Int {
-        return when (getItem(position)) {
-            is Pokemon -> R.layout.pokedex_item
-            else -> throw IllegalStateException()
-        }
+    override fun onBindCircularViewHolder(holder: PokemonItemViewHolder, position: Int) {
+        holder.bind(
+            getItem(position.toCircularPosition()).getImageUrl()
+        )
     }
 }
 
@@ -46,14 +35,4 @@ class PokemonItemViewHolder(private val binding: PokedexItemBinding) :
     fun bind(imageUrl: String) {
         binding.detailsImage.load(imageUrl)
     }
-}
-
-class PokedexDiffUtil : DiffUtil.ItemCallback<Pokemon>() {
-
-    override fun areItemsTheSame(oldItem: Pokemon, newItem: Pokemon): Boolean =
-        oldItem.name == newItem.name
-
-    override fun areContentsTheSame(oldItem: Pokemon, newItem: Pokemon): Boolean =
-        oldItem == newItem
-
 }

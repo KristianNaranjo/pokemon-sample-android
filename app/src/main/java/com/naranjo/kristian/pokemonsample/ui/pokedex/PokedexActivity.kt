@@ -43,6 +43,7 @@ class PokedexActivity : AppCompatActivity() {
         }
 
         viewModel.pokemon.observe(this) {
+            binding.pokemonList.setCurrentItem(pokedexAdapter.getCenterPage(), false)
             pokedexAdapter.submitList(it)
         }
     }
