@@ -7,6 +7,7 @@ import coil.load
 import com.naranjo.kristian.pokemonsample.databinding.PokedexItemBinding
 import com.naranjo.kristian.pokemonsample.service.Pokemon
 import com.naranjo.kristian.pokemonsample.ui.util.CircularAdapter
+import java.util.*
 
 
 class PokedexAdapter : CircularAdapter<Pokemon, String, PokemonItemViewHolder>(Pokemon::name) {
@@ -24,7 +25,7 @@ class PokedexAdapter : CircularAdapter<Pokemon, String, PokemonItemViewHolder>(P
 
     override fun onBindCircularViewHolder(holder: PokemonItemViewHolder, position: Int) {
         holder.bind(
-            getItem(position.toCircularPosition()).getImageUrl()
+            getItem(position.toCircularPosition())
         )
     }
 }
@@ -32,7 +33,8 @@ class PokedexAdapter : CircularAdapter<Pokemon, String, PokemonItemViewHolder>(P
 class PokemonItemViewHolder(private val binding: PokedexItemBinding) :
     RecyclerView.ViewHolder(binding.root) {
 
-    fun bind(imageUrl: String) {
-        binding.detailsImage.load(imageUrl)
+    fun bind(pokemon: Pokemon) {
+        binding.pokedexItemImage.load(pokemon.getImageUrl())
+        binding.pokedexItemName.text = pokemon.name.capitalize(Locale.ROOT)
     }
 }

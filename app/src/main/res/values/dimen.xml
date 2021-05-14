@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
-    <dimen name="details_image_margin_horizontal">80dp</dimen>
+    <dimen name="details_image_margin_horizontal">32dp</dimen>
     <dimen name="details_image_offset">160dp</dimen>
     <dimen name="details_image_page_margin">32dp</dimen>
 </resources>
