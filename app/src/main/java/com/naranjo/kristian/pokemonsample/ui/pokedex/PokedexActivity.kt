@@ -1,5 +1,6 @@
 package com.naranjo.kristian.pokemonsample.ui.pokedex
 
+import android.content.res.Configuration
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.view.isVisible
@@ -27,6 +28,8 @@ class PokedexActivity : AppCompatActivity() {
 
         val pokedexAdapter = PokedexAdapter()
         binding.pokemonList.apply {
+            val isPortrait = resources.configuration.orientation == Configuration.ORIENTATION_PORTRAIT
+            orientation = getViewPagerOrientation(isPortrait)
             adapter = pokedexAdapter
             offscreenPageLimit = 3
             setPageTransformer(
@@ -38,7 +41,7 @@ class PokedexActivity : AppCompatActivity() {
                         TranslationTransformer(
                             offsetPx,
                             marginPx,
-                            ViewPager2.ORIENTATION_VERTICAL
+                            getViewPagerOrientation(isPortrait)
                         )
                     )
                     addTransformer(AlphaTransformer(.6f))
@@ -58,6 +61,13 @@ class PokedexActivity : AppCompatActivity() {
                 )
                 PokedexViewModel.State.Error -> binding.showErrorState()
             }
+        }
+    }
+
+    private fun getViewPagerOrientation(isPortrait: Boolean): Int {
+        return when {
+            isPortrait -> ViewPager2.ORIENTATION_VERTICAL
+            else -> ViewPager2.ORIENTATION_HORIZONTAL
         }
     }
 
